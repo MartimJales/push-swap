@@ -1,0 +1,9 @@
+Verificar se o input é válido --- Apenas inteiros (dia 7)
+Criar as stacks conforme o input (dia 8)
+Criar funções para aplicar os comandos necessários (dia 10)
+Copiar o algoritmo de python para C (dia 12)
+Copiar um makefile do git e tentar adaptar (dia 13)
+Corrigir erros de norminette (dia 15)
+Corrigir possiveis bugs / otimizar o codigo se necessário (dia 17)
+Instalar um tester e ver se é valido (dia 19)
+
