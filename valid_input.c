@@ -56,6 +56,7 @@ int isinteger(char *s)
 		if (!ft_isdigit(s[i]))
 			return (0);
 	num = ft_atoi(s);
+	// tenho que ver se esta condição verifica mesmo os limites ou se tenho que pensar noutra estrategia
 	if (num < INT_MIN || num > INT_MAX)
 		return (0);
 	return (1);
@@ -69,12 +70,9 @@ int valid_input(int argc, char* argv[])
 	i = 0;
 	while (i++ < argc - 1)
 	{
-		printf("%s\n", argv[i]);
 		if (!isinteger(argv[i]))
 			result = 0;
-		printf("RESULT = %d\n", result);
 	}
-
 	return (result);
 }
 
