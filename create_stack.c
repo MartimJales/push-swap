@@ -6,7 +6,7 @@
 /*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:05:34 by mjales            #+#    #+#             */
-/*   Updated: 2022/09/10 15:19:39 by mjales           ###   ########.fr       */
+/*   Updated: 2022/09/11 09:42:40 by mjales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,19 @@ stacks *create_stacks(int argc, char *argv[])
 	return (lists);
 }
 
-void print_stacks(stacks *lists)
+void print_stacks(stacks lists)
 {
 	printf("A: ");
-     while (lists->a)
+     while (lists.a)
      {
-         printf("%d ", lists->a->content);
-         lists->a = lists->a->next;
+         printf("%d ", lists.a->content);
+         lists.a = lists.a->next;
      }
 	 printf("\nB: ");
-     while (lists->b)
+     while (lists.b)
      {
-         printf("%d ", lists->b->content);
-         lists->b = lists->b->next;
+         printf("%d ", lists.b->content);
+         lists.b = lists.b->next;
      }
-	 printf("\nS: %s\n", lists->s);
+	 printf("\nS: %s\n", lists.s);
 }

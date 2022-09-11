@@ -6,7 +6,7 @@
 /*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:12:41 by mjales            #+#    #+#             */
-/*   Updated: 2022/09/10 15:20:14 by mjales           ###   ########.fr       */
+/*   Updated: 2022/09/11 16:30:04 by mjales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int main(int argc, char* argv[])
     {
         printf("VALIDO\n");
         lists = create_stacks(argc, argv);
-        print_stacks(lists);
+        print_stacks(*lists);
+        reverse_a(lists);
+        print_stacks(*lists);
     }
     else
         printf("INVALIDO\n");
