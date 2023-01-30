@@ -6,60 +6,68 @@
 /*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:05:34 by mjales            #+#    #+#             */
-/*   Updated: 2022/09/11 09:42:40 by mjales           ###   ########.fr       */
+/*   Updated: 2023/01/30 14:56:25 by mjales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*ft_lstnew(int content)
+void swap(int* xp, int* yp)
 {
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	int temp = *xp;
+	*xp = *yp;
+	*yp = temp;
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+// A function to implement bubble sort
+void bubbleSort(int arr[], int n)
 {
-	if (lst)
-	{
-		if (*lst)
-			ft_lstlast(*lst)->next = new;
-		else
-			*lst = new;
-	}
+	int i, j;
+	for (i = 0; i < n - 1; i++)
+		for (j = 0; j < n - i - 1; j++)
+			if (arr[j] > arr[j + 1])
+				swap(&arr[j], &arr[j + 1]);
 }
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-t_list *create_list(int argc, char *argv[])
+t_list *create_list(int argc, char *argv[], int arr[])
 {
     t_list *lst;
     t_list *new;
+	elem *element;
     int	i;
-    int num;
+	int j;
 
 	lst = NULL;
 	i = 0;
+	j = 0;
 	while (i++ < argc - 1)
 	{
-        num = ft_atoi(argv[i]);
-        new = ft_lstnew(num);
+		element = malloc(sizeof(elem));
+		element->index = -1;
+        element->value = ft_atoi(argv[i]);
+		element->chunk = -1;
+		arr[j] = element->value;
+		j++;
+        new = ft_lstnew((void *)element);
         ft_lstadd_back(&lst, new);
 	}
     return (lst);
+}
+
+void index_list(t_list *list, int arr[], int n)
+{
+	int i;
+
+	while(list)
+	{
+		i = -1;
+		while(++i < n)
+			if (arr[i] == ((elem *)(list->content))->value)
+			{
+				((elem *)(list->content))->index = i;
+			}
+ 		list = list->next;
+	}
 }
 
 stacks *create_stacks(int argc, char *argv[])
@@ -68,30 +76,18 @@ stacks *create_stacks(int argc, char *argv[])
 	t_list *a;
 	t_list *b;
 	char *s;
+	int arr[argc - 1];
 
 	lists = malloc(sizeof(stacks));
-	s = NULL;
-	a = create_list(argc, argv);
+	s = malloc(100);
+	ft_memset(s, 0, 100);
+	a = create_list(argc, argv, arr);
+	bubbleSort(arr, argc - 1);
+	index_list(a, arr, argc - 1);
     b = NULL;
 	lists->a = a;
 	lists->b = b;
+	update_indexs(lists);
 	lists->s = s;
 	return (lists);
-}
-
-void print_stacks(stacks lists)
-{
-	printf("A: ");
-     while (lists.a)
-     {
-         printf("%d ", lists.a->content);
-         lists.a = lists.a->next;
-     }
-	 printf("\nB: ");
-     while (lists.b)
-     {
-         printf("%d ", lists.b->content);
-         lists.b = lists.b->next;
-     }
-	 printf("\nS: %s\n", lists.s);
 }

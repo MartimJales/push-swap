@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movees.c                                           :+:      :+:    :+:   */
+/*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 16:30:02 by mjales            #+#    #+#             */
-/*   Updated: 2022/09/11 17:16:49 by mjales           ###   ########.fr       */
+/*   Updated: 2023/01/30 12:48:05 by mjales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 void swap_a(stacks *lists)
 {
-	int aux;
+	long aux;
 
-	aux = (*lists).a->next->content;
+	aux = (long)(*lists).a->next->content;
 	(*lists).a->next->content = (*lists).a->content;
-	(*lists).a->content = aux;
-	printf("sa\n");
+	(*lists).a->content = (void *)aux;
+	// printf("sa\n");
+	lists->s = ft_strjoin(lists->s, "sa\n");
+	// print_stacks(*lists);
 	// I need to add strjoin to this
 }
 
 void swap_b(stacks *lists)
 {
-	int aux;
+	long aux;
 
-	aux = (*lists).b->next->content;
+	aux = (long)(*lists).b->next->content;
 	(*lists).b->next->content = (*lists).b->content;
-	(*lists).b->content = aux;
-	printf("sb\n");
+	(*lists).b->content = (void *)aux;
+	// printf("sb\n");
+	lists->s = ft_strjoin(lists->s, "sb\n");
+	// print_stacks(*lists);
 	// I need to add strjoin to this
 }
 
@@ -46,7 +50,10 @@ void push_a(stacks *lists)
 		lists->a = lists->b;
 		lists->b = new;
 	}
-	printf("pa\n");
+	update_indexs(lists);
+	// printf("pa\n");
+	lists->s = ft_strjoin(lists->s, "pa\n");
+	// print_stacks(*lists);
 }
 
 void push_b(stacks *lists)
@@ -61,7 +68,10 @@ void push_b(stacks *lists)
 		lists->b = lists->a;
 		lists->a = new;
 	}
-	printf("pb\n");
+	update_indexs(lists);
+	// printf("pb\n");
+	lists->s = ft_strjoin(lists->s, "pb\n");
+	// print_stacks(*lists);
 }
 
 void rotate_a(stacks *lists)
@@ -76,7 +86,9 @@ void rotate_a(stacks *lists)
 		lists->a = lists->a->next;
 		aux->next->next = NULL;
 	}
-	printf("ra\n");
+	// printf("ra\n");
+	lists->s = ft_strjoin(lists->s, "ra\n");
+	// print_stacks(*lists);
 }
 
 void rotate_b(stacks *lists)
@@ -91,7 +103,9 @@ void rotate_b(stacks *lists)
 		lists->b = lists->b->next;
 		aux->next->next = NULL;
 	}
-	printf("rb\n");
+	// printf("rb\n");
+	lists->s = ft_strjoin(lists->s, "rb\n");
+	// print_stacks(*lists);
 }
 
 void reverse_a(stacks *lists)
@@ -110,7 +124,28 @@ void reverse_a(stacks *lists)
 		lists->a = tmp;
 		aux->next = NULL;
 	}
-	printf("rra\n");
+	// printf("rra\n");
+	lists->s = ft_strjoin(lists->s, "rra\n");
+	// print_stacks(*lists);
 }
 
+void reverse_b(stacks *lists)
+{
+	t_list *aux;
+	t_list *tmp;
 
+	tmp = NULL;
+	aux = lists->b;
+	if (lists->b != NULL && lists->b->next != NULL)
+	{
+		while (aux->next->next != NULL)
+			aux = aux->next;
+		tmp = ft_lstlast(lists->b);
+		tmp->next = lists->b;
+		lists->b = tmp;
+		aux->next = NULL;
+	}
+	// printf("rrb\n");
+	lists->s = ft_strjoin(lists->s, "rrb\n");
+	// print_stacks(*lists);
+}
