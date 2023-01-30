@@ -65,5 +65,7 @@ void update_indexs(stacks *lists);
 elem find_best_pos(t_list *lst, int index, int min, int  max);
 int find_best_move(stacks *tmp);
 void insert_in_order(stacks *lists, char stack);
+void change_stack_a(stacks *lists, int chunks);
+void update_chunks(stacks *lists, int chunks);
 
 #endif

@@ -70,22 +70,24 @@ void insert_in_order(stacks *lists, char stack)
 
     if (stack == 'a')
     {
-        aux_index = find_best_pos(lists->a, ((elem *)lists->b->content)->index, lists->min_index_a, lists->max_index_a);
-        if (aux_index.index < ft_lstsize(lists->a) - aux_index.index)
+        if (lists->a)
+            aux_index = find_best_pos(lists->a, ((elem *)lists->b->content)->index, lists->min_index_a, lists->max_index_a);
+        if (lists->a && aux_index.index < ft_lstsize(lists->a) - aux_index.index)
             while (((elem *)lists->a->content)->index != aux_index.value)
                 rotate_a(lists);
-        else
+        else if (lists->a)
             while (((elem *)lists->a->content)->index != aux_index.value)
                 reverse_a(lists);
         push_a(lists);
     }
     else if (stack == 'b')
     {
-        aux_index = find_best_pos(lists->b, ((elem *)lists->a->content)->index, lists->min_index_b, lists->max_index_b);
-        if (aux_index.index < ft_lstsize(lists->b) - aux_index.index)
+        if (lists->b)
+            aux_index = find_best_pos(lists->b, ((elem *)lists->a->content)->index, lists->min_index_b, lists->max_index_b);
+        if (lists->b && aux_index.index < ft_lstsize(lists->b) - aux_index.index)
             while (((elem *)lists->b->content)->index != aux_index.value)
                 rotate_b(lists);
-        else
+        else if (lists->b)
             while (((elem *)lists->b->content)->index != aux_index.value)
                 reverse_b(lists);
         push_b(lists);
