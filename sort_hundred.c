@@ -1,71 +1,87 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_hundred.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/31 16:38:20 by mjales            #+#    #+#             */
+/*   Updated: 2023/01/31 17:21:03 by mjales           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void change_stack_a(stacks *lists, int chunks)
+void	change_aux(t_stacks *lists, int j, t_elem moves, int chunks)
 {
-    int i, j;
-    int max_rot;
-    int max_rev;
-    t_list *tmp;
-
-    j = -1;
-    max_rot = 0;
-    while (!max_rot && ++j < chunks)
-    {
-        tmp = lists->a;
-        i = 0;
-        while (tmp){
-            if (((elem *)tmp->content)->chunk == j){
-                if (!max_rot)
-                    max_rot = i;
-                max_rev = ft_lstsize(lists->a) - i;
-            }
-            i++;
-            tmp = tmp->next;
-        }
-    }
-    if (j < chunks && max_rot < max_rev)
-        while (((elem *)lists->a->content)->chunk != j)
-                rotate_a(lists);
-    else if (j < chunks)
-        while (((elem *)lists->a->content)->chunk != j)
-            reverse_a(lists);
+	if (j < chunks && moves.index < moves.value)
+		while (((t_elem *)lists->a->content)->chunk != j)
+			rotate_a(lists);
+	else if (j < chunks)
+		while (((t_elem *)lists->a->content)->chunk != j)
+			reverse_a(lists);
 }
 
-void update_chunks(stacks *lists, int chunks)
+void	change_stack_a(t_stacks *lists, int chunks)
 {
-    int num;
-    t_list *tmp = lists->a;
+	t_list	*tmp;
+	t_elem	index;
+	t_elem	moves;
 
-    num = (int)(ft_lstsize(lists->a) / chunks);
-    while(tmp)
-    {
-        ((elem *)(tmp->content))->chunk = ((elem *)(tmp->content))->index / num;
-        tmp = tmp->next;
-    }
+	index.value = -1;
+	moves.index = 0;
+	while (!moves.index && ++index.value < chunks)
+	{
+		tmp = lists->a;
+		index.index = 0;
+		while (tmp && index.index++)
+		{
+			if (((t_elem *)tmp->content)->chunk == index.value)
+			{
+				if (!moves.index)
+					moves.index = index.index;
+				moves.value = ft_lstsize(lists->a) - index.index;
+			}
+			tmp = tmp->next;
+		}
+	}
+	change_aux(lists, index.value, moves, chunks);
 }
 
-void sort_hundred(stacks *lists)
+void	update_chunks(t_stacks *lists, int chunks)
 {
-    elem aux_index;
-    int num_chunks = 5;
+	int		num;
+	t_list	*tmp;
 
-    (void)aux_index;
-    update_chunks(lists, num_chunks);
-    while(ft_lstsize(lists->a) > 1){
-        change_stack_a(lists, num_chunks);
-        push_b(lists);
-        // insert_in_order(lists, 'b');
-    }
-     while(ft_lstsize(lists->b) > 0){
-        insert_in_order(lists, 'a');
-    }
-    aux_index = find_best_pos(lists->a, -1, lists->min_index_a, lists->max_index_a);
-    printf("index wanted = %d\n", aux_index.value);
-    if (aux_index.index < ft_lstsize(lists->a) - aux_index.index)
-        while (((elem *)lists->a->content)->index != aux_index.value)
-            rotate_a(lists);
-    else
-        while (((elem *)lists->a->content)->index != aux_index.value)
-            reverse_a(lists);
+	tmp = lists->a;
+	num = (int)(ft_lstsize(lists->a) / chunks);
+	while (tmp)
+	{
+		((t_elem *)(tmp->content))->chunk = \
+		((t_elem *)(tmp->content))->index / num;
+		tmp = tmp->next;
+	}
+}
 
+void	sort_hundred(t_stacks *lists, int num_chunks)
+{
+	t_elem	aux_index;
+
+	update_chunks(lists, num_chunks);
+	while (ft_lstsize(lists->a) > 1)
+	{
+		change_stack_a(lists, num_chunks);
+		push_b(lists);
+	}
+	while (ft_lstsize(lists->b) > 0)
+	{
+		insert_in_order(lists, 'a');
+	}
+	aux_index = best_pos(lists->a, -1, lists->min_index_a, lists->max_index_a);
+	if (aux_index.index < ft_lstsize(lists->a) - aux_index.index)
+		while (((t_elem *)lists->a->content)->index != aux_index.value)
+			rotate_a(lists);
+	else
+		while (((t_elem *)lists->a->content)->index != aux_index.value)
+			reverse_a(lists);
 }

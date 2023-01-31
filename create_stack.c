@@ -6,7 +6,7 @@
 /*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 14:05:34 by mjales            #+#    #+#             */
-/*   Updated: 2023/01/30 14:56:25 by mjales           ###   ########.fr       */
+/*   Updated: 2023/01/31 14:00:27 by mjales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_list *create_list(int argc, char *argv[], int arr[])
 {
     t_list *lst;
     t_list *new;
-	elem *element;
+	t_elem *element;
     int	i;
 	int j;
 
@@ -42,7 +42,7 @@ t_list *create_list(int argc, char *argv[], int arr[])
 	j = 0;
 	while (i++ < argc - 1)
 	{
-		element = malloc(sizeof(elem));
+		element = malloc(sizeof(t_elem));
 		element->index = -1;
         element->value = ft_atoi(argv[i]);
 		element->chunk = -1;
@@ -62,23 +62,23 @@ void index_list(t_list *list, int arr[], int n)
 	{
 		i = -1;
 		while(++i < n)
-			if (arr[i] == ((elem *)(list->content))->value)
+			if (arr[i] == ((t_elem *)(list->content))->value)
 			{
-				((elem *)(list->content))->index = i;
+				((t_elem *)(list->content))->index = i;
 			}
  		list = list->next;
 	}
 }
 
-stacks *create_stacks(int argc, char *argv[])
+t_stacks *create_stacks(int argc, char *argv[])
 {
-	stacks *lists;
+	t_stacks *lists;
 	t_list *a;
 	t_list *b;
 	char *s;
 	int arr[argc - 1];
 
-	lists = malloc(sizeof(stacks));
+	lists = malloc(sizeof(t_stacks));
 	s = malloc(100);
 	ft_memset(s, 0, 100);
 	a = create_list(argc, argv, arr);

@@ -6,17 +6,17 @@
 /*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:50:56 by mjales            #+#    #+#             */
-/*   Updated: 2023/01/28 12:11:50 by mjales           ###   ########.fr       */
+/*   Updated: 2023/01/31 17:15:28 by mjales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <limits.h>
 
-int isinteger(char *s)
+int	isinteger(char *s)
 {
-	int i;
-	long num;
+	int		i;
+	long	num;
 
 	i = 0;
 	if (!ft_isdigit(s[i]) && s[i] != '-')
@@ -30,34 +30,35 @@ int isinteger(char *s)
 	return (1);
 }
 
-int arg_repeated(int argc, char *argv[])
-{
-	int i;
-
-	i = 0;
-	while (i++ < argc - 1)
-	{
-		if (ft_strncmp(argv[i], argv[argc], ft_strlen(argv[i])) == 0 && ft_strncmp(argv[i], argv[argc], ft_strlen(argv[argc])) == 0)
-		{
-			printf("%s == %s\n", argv[i], argv[argc]);
-			return 1;
-		}
-	}
-	return 0;
-}
-
-int valid_input(int argc, char* argv[])
+int	arg_repeated(int argc, char *argv[])
 {
 	int	i;
 
 	i = 0;
 	while (i++ < argc - 1)
 	{
-		if (!isinteger(argv[i]) || arg_repeated(i, argv)){
+		if (ft_strncmp(argv[i], argv[argc], ft_strlen(argv[i])) == 0 && \
+		ft_strncmp(argv[i], argv[argc], ft_strlen(argv[argc])) == 0)
+		{
+			printf("%s == %s\n", argv[i], argv[argc]);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+int	valid_input(int argc, char *argv[])
+{
+	int	i;
+
+	i = 0;
+	while (i++ < argc - 1)
+	{
+		if (!isinteger(argv[i]) || arg_repeated(i, argv))
+		{
 			printf("caiu com %s\n", argv[i]);
 			return (0);
 		}
 	}
 	return (1);
 }
-
