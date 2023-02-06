@@ -6,7 +6,7 @@
 /*   By: mjales <mjales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:47:25 by mjales            #+#    #+#             */
-/*   Updated: 2023/01/31 17:28:14 by mjales           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:59:01 by mjales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void		sort_many(t_stacks *lists, int num_chunks);
 //Auxili	ar functions
 void		update_indexs(t_stacks *lists);
 t_elem		best_pos(t_list *lst, int index, int min, int max);
-void		insert_in_order(t_stacks *lists, char stack);
+void		insert_in_a(t_stacks *lists);
+void		insert_in_b(t_stacks *lists);
+void		insert_in_order(t_stacks *lists, char stacks);
 void		change_stack_a(t_stacks *lists, int chunks);
 void		update_chunks(t_stacks *lists, int chunks);
 int			best_move(t_stacks *tmp);
